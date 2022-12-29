@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+- Install the required dependencies:
+```npm install express mongodb```
+- The File `src/createDatabase.js` This file will start an Express server on port 3000.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- You can use a tool like Postman or curl to send a GET request to the `/subscribers` route and retrieve a list of subscribers:
+  `curl http://localhost:3000/subscribers`
+- You can also send a GET request to the `/subscribers/names` route to retrieve a list of subscribers with only their names and subscribed channels:
+  `curl http://localhost:3000/subscribers/names`
+- You can send a GET request to the `/subscribers/:id` route with a specific id to retrieve a single subscriber:
+  `curl http://localhost:3000/subscribers/123`
+  
+- Open the MongoDB shell by running the following command in your terminal:
 
-## Available Scripts
+`mongo`
 
-In the project directory, you can run:
+Connect to the "myDatabase" database by running the following command in the MongoDB shell:
 
-### `npm start`
+`use myDatabase`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Insert a new document into the "subscribers" collection using the insertOne method:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`db.subscribers.insertOne({
+  name: 'John Doe',
+  email: 'john.doe@example.com',
+  subscribedChannel: 'Tech Tips'
+});
+`
 
-### `npm test`
+This will insert a new document with the specified fields into the "subscribers" collection.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can also insert multiple documents at once using the insertMany method:
 
-### `npm run build`
+`db.subscribers.insertMany([
+  {
+    name: 'Jane Smith',
+    email: 'jane.smith@example.com',
+    subscribedChannel: 'Cooking with Jane'
+  },
+  {
+    name: 'Bob Johnson',
+    email: 'bob.johnson@example.com',
+    subscribedChannel: 'DIY Projects'
+  }
+]);
+`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You can then use the find method to retrieve the documents you have inserted:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`db.subscribers.find();`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This will display all the documents in the "subscribers" collection.
